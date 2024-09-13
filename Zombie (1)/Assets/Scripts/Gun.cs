@@ -4,10 +4,10 @@ using UnityEngine;
 // 총을 구현
 public class Gun : MonoBehaviour {
     // 총의 상태를 표현하는 데 사용할 타입을 선언
-    public enum State {
-        Ready, // 발사 준비됨
-        Empty, // 탄알집이 빔
-        Reloading // 재장전 중
+    public enum State {  //State의 자료형 선언과 이 자료형은 아래의 3개의 변수만 받을 수 있다.
+        Ready,
+        Empty, 
+        Reloading
     }
 
     public State state { get; private set; } // 현재 총의 상태
@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour {
     private float lastFireTime; // 총을 마지막으로 발사한 시점
 
     private void Awake() {
-        // 사용할 컴포넌트의 참조 가져오기
+
         gunAudioPlayer = GetComponent<AudioSource>();
         bulletLineRenderer = GetComponent<LineRenderer>();
 
@@ -42,12 +42,14 @@ public class Gun : MonoBehaviour {
     }
 
     private void OnEnable() {
-        // 총 상태 초기화
+
         //전체 예비 탄알 양을 초기화
         ammoRemain = gunData.startAmmoRemain;
         //현재 탄창의 가득 채우기
         magAmmo = gunData.magCapacity;
 
+        //총의 현재 상채를 총을 쏠 준비가 된 상태로 변경
+        state = State.Ready;
         //마지막으로 쏜 총시간을 초기화
         lastFireTime = 0;
     }
